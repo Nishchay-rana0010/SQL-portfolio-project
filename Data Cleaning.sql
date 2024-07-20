@@ -37,9 +37,6 @@ select *
 from duplicate_cte
 where row_num >1;
 
-select *
-from layoffs_staging
-WHERE company='Casper';
 
 -- Adding 'row_num' column to a new table 'layoffs_staging2' as the duplicate rows could not be deleted in the CTE
 CREATE TABLE `layoffs_staging2` (
