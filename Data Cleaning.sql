@@ -1,7 +1,7 @@
 -- Data Cleaning
 -- Activating Database and viewing the table
-USE world_layoffs;
-SELECT * FROM layoffs;
+USE layoffs;
+SELECT * FROM layoff;
 
 
 -- 1. Remove duplicates
@@ -11,10 +11,10 @@ SELECT * FROM layoffs;
 
 
 -- Creating a copy of the raw data
-create table layoffs_staging like layoffs;
+create table layoffs_staging like layoff;
 
 insert layoffs_staging
-select * from layoffs;
+select * from layoff;
 
 select * from layoffs_staging;
 
@@ -97,20 +97,6 @@ ORDER BY 1;
 UPDATE layoffs_staging2
 SET country = trim(trailing '.' from country)
 WHERE country LIKE 'United States%';
-
--- Converting text to date format
-SELECT `date`,
-str_to_date(`date`, '%m/%d/%Y')
-FROM layoffs_staging2;
-
-UPDATE layoffs_staging2
-SET `date` = str_to_date(`date`, '%m/%d/%Y');
-
-SELECT `date` FROM layoffs_staging2;
-
--- Changing data type to date 
-ALTER TABLE layoffs_staging2
-MODIFY COLUMN `date` DATE;
 
 -- 3. Eliminating null or blank values
 -- Replacing blank values with null
